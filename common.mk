@@ -210,6 +210,9 @@ PRODUCT_PACKAGES += \
     qti-telephony-utils \
     qti_telephony_utils.xml
 
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/privapp-ims.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp-ims.xml
+
 # Update engine
 PRODUCT_PACKAGES += \
     update_engine \
