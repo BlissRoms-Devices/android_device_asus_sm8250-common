@@ -23,10 +23,15 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/gsi_keys.mk)
 # Get non-open-source specific aspects
 $(call inherit-product, vendor/asus/sm8250-common/sm8250-common-vendor.mk)
 
+# Additional native libraries
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/public.libraries.txt:$(TARGET_COPY_OUT_VENDOR)/etc/public.libraries.txt
+
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += \
-    $(LOCAL_PATH)/overlay \
-    $(LOCAL_PATH)/overlay-lineage
+    $(LOCAL_PATH)/overlay
+
+PRODUCT_ENFORCE_RRO_TARGETS := *
 
 # Properties
 PRODUCT_COMPATIBLE_PROPERTY_OVERRIDE := true
@@ -46,6 +51,7 @@ AB_OTA_PARTITIONS += \
     product \
     recovery \
     system \
+    system_ext \
     vbmeta \
     vbmeta_system \
     vendor
@@ -73,10 +79,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     audio.a2dp.default
 
-# Bluetooth
-PRODUCT_PACKAGES += \
-    BluetoothQti
-
 # Boot control
 PRODUCT_PACKAGES += \
     android.hardware.boot@1.0-impl \
@@ -87,6 +89,10 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_PACKAGES_DEBUG += \
     bootctl
+
+# Camera
+PRODUCT_PACKAGES += \
+    Snap
 
 # Common init scripts
 PRODUCT_PACKAGES += \
@@ -101,38 +107,45 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/etc/fstab.qcom:$(TARGET_COPY_OUT_RAMDISK)/fstab.qcom
 
 # Display
-PRODUCT_PACKAGES += \
-    android.hardware.graphics.mapper@3.0-impl-qti-display \
-    vendor.qti.hardware.display.allocator-service \
-    vendor.qti.hardware.display.composer-service \
-    android.hardware.memtrack@1.0-impl \
-    android.hardware.memtrack@1.0-service \
-    gralloc.kona \
-    memtrack.kona \
-    libqdMetaData \
-    libdisplayconfig.vendor \
-    vendor.display.config@1.0.vendor \
-    vendor.display.config@1.1.vendor \
-    vendor.display.config@1.2.vendor \
-    vendor.display.config@1.3.vendor \
-    vendor.display.config@1.4.vendor \
-    vendor.display.config@1.5.vendor \
-    vendor.display.config@1.6.vendor \
-    vendor.display.config@1.7.vendor \
-    vendor.display.config@1.8.vendor \
-    vendor.display.config@1.9.vendor \
-    vendor.display.config@1.10.vendor \
-    vendor.display.config@1.11.vendor \
-    vendor.display.config@1.12.vendor \
-    vendor.display.config@1.13.vendor \
-    vendor.display.config@1.14.vendor \
-    vendor.display.config@1.15.vendor \
-    vendor.qti.hardware.display.mapper@1.0.vendor \
-    vendor.qti.hardware.display.mapper@2.0.vendor \
-    vendor.qti.hardware.display.mapper@3.0.vendor
+#PRODUCT_PACKAGES += \
+#    android.hardware.graphics.mapper@3.0-impl-qti-display \
+#    vendor.qti.hardware.display.allocator-service \
+#    vendor.qti.hardware.display.composer-service \
+#    android.hardware.memtrack@1.0-impl \
+#    android.hardware.memtrack@1.0-service \
+#    gralloc.kona \
+#    memtrack.kona \
+#    libqdMetaData \
+#    libdisplayconfig.vendor \
+#    vendor.display.config@1.0.vendor \
+#    vendor.display.config@1.1.vendor \
+#    vendor.display.config@1.2.vendor \
+#    vendor.display.config@1.3.vendor \
+#    vendor.display.config@1.4.vendor \
+#    vendor.display.config@1.5.vendor \
+#    vendor.display.config@1.6.vendor \
+#    vendor.display.config@1.7.vendor \
+#    vendor.display.config@1.8.vendor \
+#    vendor.display.config@1.9.vendor \
+#    vendor.display.config@1.10.vendor \
+#    vendor.display.config@1.11.vendor \
+#    vendor.display.config@1.12.vendor \
+#    vendor.display.config@1.13.vendor \
+#    vendor.display.config@1.14.vendor \
+#    vendor.display.config@1.15.vendor \
+#    vendor.qti.hardware.display.mapper@1.0.vendor \
+#    vendor.qti.hardware.display.mapper@2.0.vendor \
+#    vendor.qti.hardware.display.mapper@3.0.vendor
 
 PRODUCT_PACKAGES += \
     vendor.display.config@1.12
+
+# HIDL
+PRODUCT_PACKAGES += \
+    libhidltransport \
+    libhidltransport.vendor \
+    libhwbinder \
+    libhwbinder.vendor
 
 # fastbootd
 PRODUCT_PACKAGES += \
@@ -155,29 +168,38 @@ PRODUCT_PACKAGES += \
     netutils-wrapper-1.0
 
 # Omx
-PRODUCT_PACKAGES += \
-    libc2dcolorconvert \
-    libcodec2_hidl@1.0.vendor \
-    libcodec2_vndk.vendor \
-    libmm-omxcore \
-    libOmxCore \
-    libOmxAacEnc \
-    libOmxAmrEnc \
-    libOmxEvrcEnc \
-    libOmxG711Enc \
-    libOmxQcelp13Enc \
-    libOmxVdec \
-    libOmxVenc \
-    libOmxVidcCommon \
-    libstagefrighthw
+#PRODUCT_PACKAGES += \
+#    libc2dcolorconvert \
+#    libcodec2_hidl@1.0.vendor \
+#    libcodec2_vndk.vendor \
+#    libmm-omxcore \
+#    libOmxCore \
+#    libOmxAacEnc \
+#    libOmxAmrEnc \
+#    libOmxEvrcEnc \
+#    libOmxG711Enc \
+#    libOmxQcelp13Enc \
+#    libOmxVdec \
+#    libOmxVenc \
+#    libOmxVidcCommon \
+#    libstagefrighthw
 
 # Power
 PRODUCT_PACKAGES += \
-    android.hardware.power@1.2-service-qti
+    android.hardware.power-service-qti
+
+# Protobuf
+PRODUCT_PACKAGES += \
+    libprotobuf-cpp-full-vendorcompat \
+    libprotobuf-cpp-lite-vendorcompat
 
 # Soong namespaces
 PRODUCT_SOONG_NAMESPACES += \
     $(LOCAL_PATH)
+
+# Shims
+PRODUCT_PACKAGES += \
+    libgui_shim
 
 # System Helper
 PRODUCT_PACKAGES += \
@@ -192,9 +214,8 @@ PRODUCT_PACKAGES += \
     qti-telephony-utils \
     qti_telephony_utils.xml
 
-# Trust HAL
-PRODUCT_PACKAGES += \
-    vendor.lineage.trust@1.0-service
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/privapp-ims.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp-ims.xml
 
 # Update engine
 PRODUCT_PACKAGES += \
@@ -209,12 +230,20 @@ PRODUCT_BUILD_SUPER_PARTITION := false
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
 
 # Vibrator
+PRODUCT_PACKAGES += \
+    vendor.qti.hardware.vibrator.service
+
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/excluded-input-devices.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/excluded-input-devices.xml
 
 # VNDK
 PRODUCT_PACKAGES += \
-    libgui_vendor
+    libgui_vendor \
+    libcomparetf2
+
+PRODUCT_COPY_FILES += \
+    prebuilts/vndk/v29/arm64/arch-arm-armv8-a/shared/vndk-sp/libcutils.so:$(TARGET_COPY_OUT_SYSTEM)/lib/libcutils-v29.so \
+    prebuilts/vndk/v29/arm64/arch-arm64-armv8-a/shared/vndk-sp/libcutils.so:$(TARGET_COPY_OUT_SYSTEM)/lib64/libcutils-v29.so
 
 # Wifi
 PRODUCT_PACKAGES += \
@@ -228,4 +257,6 @@ PRODUCT_PACKAGES += \
     vendor.qti.hardware.wifi.supplicant@2.0.vendor \
     vendor.qti.hardware.wifi.supplicant@2.1.vendor \
     wpa_supplicant \
-    wpa_supplicant.conf
+    wpa_supplicant.conf \
+    WifiOverlay \
+    TetheringOverlay
