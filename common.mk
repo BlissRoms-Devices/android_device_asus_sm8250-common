@@ -29,8 +29,7 @@ PRODUCT_COPY_FILES += \
 
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += \
-    $(LOCAL_PATH)/overlay \
-    $(LOCAL_PATH)/overlay-lineage
+    $(LOCAL_PATH)/overlay
 
 PRODUCT_ENFORCE_RRO_TARGETS := *
 
@@ -82,14 +81,18 @@ PRODUCT_PACKAGES += \
 
 # Boot control
 PRODUCT_PACKAGES += \
-    android.hardware.boot@1.1-impl-qti \
-    android.hardware.boot@1.1-impl-qti.recovery \
-    android.hardware.boot@1.1-service \
+    android.hardware.boot@1.0-impl \
+    android.hardware.boot@1.0-impl.recovery \
+    android.hardware.boot@1.0-service \
     bootctrl.kona.recovery \
     bootctrl.kona
 
 PRODUCT_PACKAGES_DEBUG += \
     bootctl
+
+# Camera
+PRODUCT_PACKAGES += \
+    Snap
 
 # Common init scripts
 PRODUCT_PACKAGES += \
@@ -211,9 +214,8 @@ PRODUCT_PACKAGES += \
     qti-telephony-utils \
     qti_telephony_utils.xml
 
-# Trust HAL
-PRODUCT_PACKAGES += \
-    vendor.lineage.trust@1.0-service
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/privapp-ims.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp-ims.xml
 
 # Update engine
 PRODUCT_PACKAGES += \
