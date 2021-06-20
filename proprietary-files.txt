@@ -111,6 +111,7 @@ product/lib64/vendor.qti.ims.rcsconfig@1.0.so
 product/lib64/vendor.qti.ims.rcsconfig@1.1.so
 product/lib64/vendor.qti.imsrtpservice@2.0.so
 product/lib64/vendor.qti.imsrtpservice@2.1.so
+
 # APK from LA.QSSI.11.0.r1-06600-qssi.0/LA.UM.9.1.r1-07300-SMxxx0.0
 -product/priv-app/ims/ims.apk|c0e2daa9938c58518e4dd3b2ed16fd8f3879c9d3
 
